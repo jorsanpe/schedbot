@@ -95,11 +95,13 @@ class Task:
         [(False, False), 0],
     ]
 
+
     def __init__(self, **kwargs):
         self.props = {}
         self.props.update(kwargs)
         if not self.props.has_key('creation'):
             self.props['creation'] = datetime.now()
+
 
     def __getitem__(self, item):
         if item == 'active':
@@ -109,9 +111,11 @@ class Task:
         except:
             return None
 
+
     def __setitem__(self, key, value):
         if key != 'active':
             self.props[key] = value
+
 
     def __cmp__(self, other):
         for k, compare in Task.comparators:
@@ -119,6 +123,7 @@ class Task:
             if value != 0:
                 return value
         return 0
+
 
     def is_active(self):
         if not self['start']:
@@ -137,6 +142,7 @@ class Task:
         if self['daily']['end'].minute < now.minute:
             return False
         return True
+
 
     def as_dict(self):
         ret = {}

@@ -21,6 +21,7 @@ class AddTaskTest(unittest.TestCase):
         self.user_repo = UserRepository()
         self.task_repo = TaskRepository()
 
+
     def test_add_task_should_deliver_error_if_user_is_not_found(self):
         self.user_repo.find_one = MagicMock(return_value=None)
         add_task = AddTask(self.user_repo, self.task_repo)
@@ -28,6 +29,7 @@ class AddTaskTest(unittest.TestCase):
         response = add_task({'user': 126})
 
         self.assertEqual('fail', response['status'])
+
 
     @patch('task.datetime')
     def test_should_add_new_task_to_user_task_list_and_return_scheduled_task_list(self, mock_dt):
@@ -51,4 +53,3 @@ class AddTaskTest(unittest.TestCase):
             'active': True,
             'creation': '2016-02-09 00:00:00'
         }], response['data'])
-

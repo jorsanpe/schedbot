@@ -30,5 +30,5 @@ request_schema = {
 }
 
 response_schema = {
-    'status': ['fail','success'],
+    'status': ['fail', 'success'],
 }

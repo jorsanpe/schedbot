@@ -11,11 +11,13 @@ class SchedulerTest(unittest.TestCase):
         scheduled = scheduler.schedule([])
         self.assertTrue([] == scheduled)
 
+
     def test_should_return_a_one_task_list_when_task_list_contains_single_task(self):
         scheduler = Scheduler()
         task = Task()
         scheduled = scheduler.schedule([task])
         self.assertTrue([task] == scheduled)
+
 
     def test_task_with_end_date_prevail_over_task_without_end_date(self):
         scheduler = Scheduler()
@@ -24,6 +26,7 @@ class SchedulerTest(unittest.TestCase):
         scheduled = scheduler.schedule([task, task_with_end])
         self.assertTrue(scheduled[0] is task_with_end)
         self.assertTrue(scheduled[1] is task)
+
 
     def test_task_with_earlier_end_date_prevail_over_task_with_farther_end_date(self):
         scheduler = Scheduler()
@@ -34,6 +37,7 @@ class SchedulerTest(unittest.TestCase):
         self.assertTrue(scheduled[0] is task3)
         self.assertTrue(scheduled[1] is task1)
         self.assertTrue(scheduled[2] is task2)
+
 
     @patch('task.datetime')
     def test_task_without_start_date_prevails_over_tasks_that_have_not_started(self, mock_dt):
@@ -47,6 +51,7 @@ class SchedulerTest(unittest.TestCase):
         self.assertTrue(scheduled[1] is task1)
         self.assertTrue(scheduled[2] is task2)
 
+
     @patch('task.datetime')
     def test_task_that_has_started_prevails_over_task_without_start_date(self, mock_dt):
         scheduler = Scheduler()
@@ -56,6 +61,7 @@ class SchedulerTest(unittest.TestCase):
         scheduled = scheduler.schedule([task1, task2])
         self.assertTrue(scheduled[0] is task1)
         self.assertTrue(scheduled[1] is task2)
+
 
     @patch('task.datetime')
     def test_from_tasks_that_have_started_task_with_earliest_deadline_prevails(self, mock_dt):
@@ -74,6 +80,7 @@ class SchedulerTest(unittest.TestCase):
         self.assertTrue(scheduled[2] is task3)
         self.assertTrue(scheduled[3] is task4)
 
+
     def test_task_with_earliest_creation_date_prevails_when_tasks_have_no_dates(self):
         scheduler = Scheduler()
         task1 = Task(creation=datetime(2016, 1, 3))
@@ -86,6 +93,7 @@ class SchedulerTest(unittest.TestCase):
         self.assertTrue(scheduled[2] is task1)
         self.assertTrue(scheduled[3] is task3)
 
+
     def test_task_with_earliest_creation_date_prevails_when_tasks_have_equal_deadlines(self):
         scheduler = Scheduler()
         task1 = Task(creation=datetime(2016, 1, 3),
@@ -95,6 +103,7 @@ class SchedulerTest(unittest.TestCase):
         scheduled = scheduler.schedule([task1, task2])
         self.assertTrue(scheduled[0] is task2)
         self.assertTrue(scheduled[1] is task1)
+
 
     @patch('task.datetime')
     def test_active_tasks_prevail_over_inactive_tasks(self, mock_dt):
@@ -106,6 +115,7 @@ class SchedulerTest(unittest.TestCase):
         self.assertTrue(scheduled[0] is active_task)
         self.assertTrue(scheduled[1] is inactive_task)
 
+
     def test_tasks_with_higher_priority_prevail_over_tasks_with_lower_or_no_priority(self):
         scheduler = Scheduler()
         task1 = Task(priority=4)
@@ -115,6 +125,7 @@ class SchedulerTest(unittest.TestCase):
         self.assertTrue(scheduled[0] is task3)
         self.assertTrue(scheduled[1] is task1)
         self.assertTrue(scheduled[2] is task2)
+
 
     @patch('task.datetime')
     def test_active_tasks_with_daily_range_prevail_over_tasks_with_no_daily_range(self, mock_dt):

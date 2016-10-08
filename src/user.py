@@ -3,8 +3,10 @@ class User:
         self.props = {}
         self.props.update(kwargs)
 
+
     def __setitem__(self, key, value):
         self.props[key] = value
+
 
     def __getitem__(self, item):
         if self.props.has_key(item):

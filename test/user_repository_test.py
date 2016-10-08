@@ -12,6 +12,7 @@ class UserRepositoryTest(unittest.TestCase):
 
         self.assertTrue(user['id'] >= 0)
 
+
     def test_user_repository_should_find_user_by_id_after_adding_user(self):
         user_repository = UserRepository()
         user = User()

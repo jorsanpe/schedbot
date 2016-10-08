@@ -8,6 +8,7 @@ class AddUserTest(unittest.TestCase):
     def setUp(self):
         self.user_repo = UserRepository()
 
+
     def test_add_user_should_add_user_to_repository(self):
         self.user_repo.user_exists = MagicMock(return_value=False)
         self.user_repo.add_user = MagicMock()
@@ -16,6 +17,7 @@ class AddUserTest(unittest.TestCase):
         response = add_user({'data': {'nickname': 'juancho'}})
 
         self.assertEqual('success', response['status'])
+
 
     def test_add_user_should_fail_if_user_already_exists(self):
         self.user_repo.user_exists = MagicMock(return_value=True)

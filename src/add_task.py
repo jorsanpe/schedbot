@@ -8,7 +8,7 @@ class AddTask:
         self.user_repo = user_repo
         self.task_repo = task_repo
 
-    # XXX: Already validated request
+
     def __call__(self, request):
         user = self.user_repo.find_one(request['user'])
         if not user:

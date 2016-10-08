@@ -15,11 +15,13 @@ class TaskTest(unittest.TestCase):
             'active': True,
         }, task.as_dict())
 
+
     @patch('task.datetime')
     def test_task_that_has_started_is_active(self, mock_dt):
         task = Task(start=datetime(2016, 1, 1))
         mock_dt.now.return_value = datetime(2016, 2, 2)
         self.assertTrue(task.is_active())
+
 
     @patch('task.datetime')
     def test_task_that_has_not_started_is_not_active(self, mock_dt):
@@ -27,12 +29,14 @@ class TaskTest(unittest.TestCase):
         mock_dt.now.return_value = datetime(2016, 1, 1)
         self.assertFalse(task.is_active())
 
+
     @patch('task.datetime')
     def test_task_in_daily_range_is_active(self, mock_dt):
         task = Task(start=datetime(2016, 1, 1),
                     daily={'start': datetime(2016, 1, 1, 8, 0), 'end': datetime(2016, 1, 1, 16, 0)})
         mock_dt.now.return_value = datetime(2016, 2, 2, 10, 0)
         self.assertTrue(task.is_active())
+
 
     @patch('task.datetime')
     def test_task_outside_daily_range_is_not_active(self, mock_dt):
