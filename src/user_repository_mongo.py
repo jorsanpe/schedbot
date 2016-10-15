@@ -2,4 +2,5 @@ from user_repository import UserRepository
 
 
 class UserRepositoryMongo(UserRepository):
-    pass
+    def __init__(self):
+        pass

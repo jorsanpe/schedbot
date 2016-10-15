@@ -1,8 +1,12 @@
-def user_not_found():
+def __fail(code):
     return {
         'status': 'fail',
-        'code': 400,
+        'code': str(code),
     }
+
+
+def user_not_found():
+    return __fail(400)
 
 
 def user_created():
@@ -13,10 +17,7 @@ def user_created():
 
 
 def user_already_exists():
-    return {
-        'status': 'fail',
-        'code': 400,
-    }
+    return __fail(400)
 
 
 def json_with(tasks):

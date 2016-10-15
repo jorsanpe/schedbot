@@ -10,9 +10,9 @@ class TaskRepositoryTest(unittest.TestCase):
         self.user_list = [User(id=1), User(id=2)]
         self.task_repository = TaskRepository()
         self.a_task = self.task_list[0]
-        self.other_task = self.other_task
+        self.other_task = self.task_list[1]
         self.a_user = self.user_list[0]
-        self.other_user = self.other_user
+        self.other_user = self.user_list[1]
 
     def test_task_repository_should_assign_unique_id_after_adding_task(self):
         self.task_repository.add_task_for(self.a_user, self.a_task)
