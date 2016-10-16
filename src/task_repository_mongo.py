@@ -27,7 +27,7 @@ class TaskRepositoryMongo(TaskRepository):
 
     def add_task_for(self, user, new_task):
         new_task['user_id'] = user['id']
-        task_id = self.client.submit_task(new_task.as_dict())
+        task_id = self.client.submit_item(new_task.as_dict())
         new_task['id'] = str(task_id)
         return self.tasks_for(user)
 

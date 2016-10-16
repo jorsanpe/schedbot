@@ -51,5 +51,5 @@ class AddTaskTest(unittest.TestCase):
         self.assertEqual([{
             'title': 'New Task',
             'active': True,
-            'creation': '2016-02-09 00:00:00'
+            'creation': str(TODAY)
         }], response['data'])

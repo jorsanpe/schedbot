@@ -35,7 +35,7 @@ def user_already_exists():
     return __fail(400)
 
 
-def json_with(tasks):
+def dict_with(tasks):
     return {
         'status': 'success',
         'code': '0',

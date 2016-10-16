@@ -17,20 +17,19 @@ import pymongo
 from task import Task
 
 
-class MongoClient:
-    def __init__(self, host, port):
-        self.client = pymongo.MongoClient(self.host, self.port)
+class MongoCollection:
+    def __init__(self, host, port, collection_name):
+        client = pymongo.MongoClient(self.host, self.port)
+        self.collection = client.schedbot[collection_name]
 
 
     def query_single(self, *query):
-        tasks = self.client.schedbot.tasks
-        return tasks.find_one(*query)
+        return self.collection.find_one(*query)
 
 
     def query_multiple(self, *query):
-        tasks = self.client.schedbot.tasks
-        return [Task(e) for e in tasks.find(*query)]
+        return [Task(e) for e in self.collection.find(*query)]
 
 
-    def submit_task(self, task):
-        return self.client.schedbot.tasks.insert_one(task).inserted_id
+    def submit_item(self, item):
+        return self.collection.insert_one(item).inserted_id

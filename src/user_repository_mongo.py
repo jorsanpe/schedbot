@@ -17,5 +17,20 @@ from user_repository import UserRepository
 
 
 class UserRepositoryMongo(UserRepository):
-    def __init__(self):
-        pass
+    def __init__(self, mongo_collection):
+        self.collection = mongo_collection
+
+
+    def find_one(self, **kwargs):
+        return self.collection.query_single(kwargs)
+
+
+    def add_user(self, user):
+        user['id'] = self.collection.submit_item(user)
+        return user['id']
+
+
+    def user_exists(self, user):
+        return self.collection.query_single({'id':user['id']})
+
+

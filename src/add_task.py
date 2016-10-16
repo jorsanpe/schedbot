@@ -29,10 +29,18 @@ class AddTask:
         if not user:
             return response.user_not_found()
 
-        new_task = Task(**request['data'])
-        self.task_repo.add_task_for(user, new_task)
+        self.add_task_to_repository(request, user)
+        scheduled_task_list = self.schedule_user_task_list(user)
+        return response.dict_with(scheduled_task_list)
+
+
+    def schedule_user_task_list(self, user):
         task_list = self.task_repo.tasks_for(user)
         scheduled_task_list = scheduler.schedule(task_list)
         self.task_repo.update_tasks_for(user, scheduled_task_list)
+        return scheduled_task_list
 
-        return response.json_with(scheduled_task_list)
+
+    def add_task_to_repository(self, request, user):
+        new_task = Task(**request['data'])
+        self.task_repo.add_task_for(user, new_task)

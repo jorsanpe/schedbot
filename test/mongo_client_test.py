@@ -1,6 +1,6 @@
 import unittest
 from mock import patch
-from mongo_client import MongoClient
+from mongo_collection import MongoCollection
 
 
 class MongoClientTest(unittest.TestCase):
